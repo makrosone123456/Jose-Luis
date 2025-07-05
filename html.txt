@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chef José Luis</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fafafa;
+            color: #333;
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+        }
+        h1 {
+            color: #447fb5;
+            font-size: 32px;
+        }
+        h2 {
+            color: #6c59cc;
+            font-size: 18px;
+            font-style: italic;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        button {
+            background-color: #6c59cc;
+            color: white;
+            padding: 12px;
+            border: none;
+            width: 100%;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5948aa;
+        }
+        .result {
+            margin-top: 20px;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Chef José Luis</h1>
+    <h2>¡Encuentra tu receta ideal!</h2>
+
+    <div>
+        <input type="text" id="ingredient1" placeholder="Ingrediente 1">
+        <input type="text" id="ingredient2" placeholder="Ingrediente 2">
+        <input type="text" id="ingredient3" placeholder="Ingrediente 3">
+        <input type="text" id="ingredient4" placeholder="Ingrediente 4">
+        <button onclick="searchRecipe()">Buscar Receta</button>
+    </div>
+
+    <div class="result" id="resultArea"></div>
+
+    <script>
+        function searchRecipe() {
+            const ingredients = [
+                document.getElementById('ingredient1').value.trim().toLowerCase(),
+                document.getElementById('ingredient2').value.trim().toLowerCase(),
+                document.getElementById('ingredient3').value.trim().toLowerCase(),
+                document.getElementById('ingredient4').value.trim().toLowerCase(),
+            ].filter(ing => ing !== "");
+
+            const resultArea = document.getElementById('resultArea');
+
+            if (ingredients.length === 0) {
+                resultArea.innerText = "Por favor, introduce al menos un ingrediente.";
+                return;
+            }
+
+            let recipe;
+            if (ingredients.includes("huevo") && ingredients.includes("patata")) {
+                recipe = {
+                    name: "Tortilla Española",
+                    country: "España",
+                    ingredients: ["4 huevos", "2 patatas", "1 cebolla", "Aceite de oliva", "Sal"],
+                    instructions: "1. Corta las patatas y fríelas.\n2. Mezcla con huevo batido.\n3. Cocina en sartén hasta dorar."
+                };
+            } else {
+                recipe = {
+                    name: "Receta Personalizada",
+                    country: "Internacional",
+                    ingredients: [...ingredients, "Sal", "Pimienta"],
+                    instructions: "1. Mezcla todos los ingredientes.\n2. Cocina a fuego medio.\n3. ¡Sirve y disfruta!"
+                };
+            }
+
+            resultArea.innerText =
+                `${recipe.name}\n` +
+                `País de Origen: ${recipe.country}\n\n` +
+                `Ingredientes:\n` +
+                recipe.ingredients.map(item => `• ${item}`).join('\n') + '\n\n' +
+                `Instrucciones:\n${recipe.instructions}`;
+        }
+    </script>
+
+</body>
+</html>
